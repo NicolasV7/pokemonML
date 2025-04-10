@@ -1,4 +1,4 @@
-FROM python:3.9-slim as builder
+FROM python:3.10-slim as builder
 
 WORKDIR /app
 
@@ -13,7 +13,7 @@ ENV MODEL_PATH=${MODEL_PATH}
 COPY requirements.txt .
 RUN pip install --user --no-cache-dir -r requirements.txt
 
-FROM python:3.9-slim
+FROM python:3.10-slim
 
 WORKDIR /app
 
