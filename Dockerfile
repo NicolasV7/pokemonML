@@ -11,7 +11,7 @@ ENV SECRET_KEY=${SECRET_KEY}
 ENV MODEL_PATH=${MODEL_PATH}
 
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
 
 FROM python:3.9-slim
 
