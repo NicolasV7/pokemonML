@@ -81,5 +81,5 @@ with open('modelo_clasificador.pkl', 'wb') as f:
 
 ## 👤 Autor
 
-**GHS**
+**Nicolas :^)**
 Clustering & Clasificación de Pokémon con Sklearn
