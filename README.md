@@ -2,6 +2,9 @@
 
 Este proyecto es una aplicación web desarrollada con Flask que permite predecir el sexo de un pingüino a partir de características físicas como la longitud y profundidad del pico, la longitud de la aleta y la masa corporal. El modelo de clasificación se ha entrenado utilizando **AdaBoost** con los datos balanceados mediante **SMOTE**, y ha sido guardado en un archivo `.pkl`.
 
+## Repo  Github para ver el modelo de cluster y clasificación
+- https://colab.research.google.com/drive/12EStdQl64hvilsOjBrDpspTpqB1tLgBc?usp=sharing
+
 ## 📦 Características del proyecto
 
 - Modelo de clasificación entrenado con AdaBoost (`scikit-learn`)
