@@ -3,7 +3,7 @@ from services.pokemon_service import PokemonService
 from core.config import Config
 
 def configure_routes(app):
-    service = PokemonService(Config.MODEL_PATH)
+    service = PokemonService(Config.MODEL_PATH, Config.ENCODER_PATH)
 
     @app.route('/', methods=['GET', 'POST'])
     def index():
