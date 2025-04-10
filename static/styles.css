@@ -1,0 +1,8 @@
+@layer utilities {
+  .animate-shake {
+    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97);
+  }
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-in;
+  }
+}

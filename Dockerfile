@@ -1,22 +1,29 @@
-# Usa la imagen base de Python
-FROM python:3.9-slim
+FROM python:3.9-slim as builder
 
-# Establece el directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-# Copia los archivos de la aplicación al contenedor
+ARG FLASK_ENV
+ARG SECRET_KEY
+ARG MODEL_PATH
+
+ENV FLASK_ENV=${FLASK_ENV}
+ENV SECRET_KEY=${SECRET_KEY}
+ENV MODEL_PATH=${MODEL_PATH}
+
+COPY requirements.txt .
+RUN pip install --user --no-cache-dir -r requirements.txt
+
+FROM python:3.9-slim
+
+WORKDIR /app
+
+COPY --from=builder /root/.local /root/.local
 COPY . .
 
-# Instala las dependencias del proyecto
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Configura variables de entorno
+ENV PYTHONPATH=/app
 ENV FLASK_APP=app.py
-ENV FLASK_RUN_HOST=0.0.0.0
+ENV FLASK_ENV=production
+ENV PATH="/root/.local/bin:${PATH}"
 
-# Expone el puerto en el que se ejecutará la aplicación
 EXPOSE 5000
-
-# Comando para ejecutar la aplicación Flask
-# Comando para ejecutar la aplicación con Gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--timeout", "120", "app:create_app()"]

@@ -1,31 +1,20 @@
-from flask import Flask, render_template, request
-import pickle
-import numpy as np
+import sys
+import os
 
-app = Flask(__name__)
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-# Cargar el modelo
-with open('adaboost_model.pkl', 'rb') as file:
-    model = pickle.load(file)
+from flask import Flask
+from core.config import Config
+from routes.main_routes import configure_routes
 
-@app.route('/', methods=['GET', 'POST'])
-def index():
-    prediction = None
+def create_app():
+    app = Flask(__name__)
+    app.config.from_object(Config)
 
-    if request.method == 'POST':
-        try:
-            bill_length = float(request.form['bill_length'])
-            bill_depth = float(request.form['bill_depth'])
-            flipper_length = float(request.form['flipper_length'])
-            body_mass = float(request.form['body_mass'])
+    configure_routes(app)
 
-            features = np.array([[bill_length, bill_depth, flipper_length, body_mass]])
-            prediction = model.predict(features)[0]
-
-        except Exception as e:
-            prediction = f'Error: {str(e)}'
-
-    return render_template('index.html', prediction=prediction)
+    return app
 
 if __name__ == '__main__':
+    app = create_app()
     app.run(debug=True)
