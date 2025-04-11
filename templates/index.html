@@ -13,8 +13,18 @@
             const loadingContainer = document.getElementById('loading-container');
             const resultContainer = document.getElementById('result-container');
 
-            if (!formContainer || !loadingContainer || !resultContainer) {
-                console.error('One or more elements are missing in the DOM.');
+            if(!formContainer){
+                console.error('Form container not found');
+                return;
+            }
+
+            if(!loadingContainer){
+                console.error('Loading container not found');
+                return;
+            }
+
+            if(!resultContainer){
+                console.error('Result container not found');
                 return;
             }
 
