@@ -22,7 +22,6 @@ def predict():
             ]
 
             cluster, examples = service.predict_cluster(stats)
-            print(f"Predicción: {cluster}")
             return jsonify({
                 'prediction': {
                     'nombre': cluster['nombre'],
