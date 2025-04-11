@@ -1,77 +1,52 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('prediction-form');
-  if (form) {
-      form.addEventListener('submit', handleSubmit);
-  }
-});
+function handleSubmit(event) {
+    event.preventDefault();
 
-async function handleSubmit(event) {
-  event.preventDefault();
+    const formContainer = document.getElementById('form-container');
+    const loadingContainer = document.getElementById('loading-container');
+    const resultContainer = document.getElementById('result-container');
 
-  const elements = {
-      form: document.getElementById('form-container'),
-      loading: document.getElementById('loading-container'),
-      result: document.getElementById('result-container'),
-      error: document.querySelector('.error-container'),
-      typewriter: document.getElementById('typewriter-text')
-  };
+    if (!formContainer || !loadingContainer || !resultContainer) {
+        console.error('One or more elements are missing in the DOM.');
+        return;
+    }
 
-  // Validar elementos
-  if (!elements.form || !elements.loading || !elements.result) {
-      console.error('Missing required elements');
-      return;
-  }
+    formContainer.classList.add('hidden');
+    loadingContainer.classList.remove('hidden');
 
-  // Mostrar carga
-  elements.form.classList.add('hidden');
-  elements.loading.classList.remove('hidden');
+    setTimeout(() => {
+        loadingContainer.classList.add('hidden');
+        resultContainer.classList.remove('hidden');
+        animateTyping();
+    }, 1500);
 
-  try {
-      const formData = new FormData(event.target);
-      const response = await fetch(event.target.action, {
-          method: 'POST',
-          body: formData,
-          headers: {
-              'Accept': 'application/json'
-          }
-      });
-
-      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-
-      const data = await response.json();
-
-      if (data.error) throw new Error(data.error);
-      if (!data.prediction) throw new Error('Invalid response format');
-
-      // Actualizar resultados
-      elements.loading.classList.add('hidden');
-      elements.result.classList.remove('hidden');
-      animateTyping(data.prediction.descripcion);
-
-  } catch (error) {
-      console.error('Error:', error);
-      elements.loading.classList.add('hidden');
-      elements.form.classList.remove('hidden');
-      alert(`Error: ${error.message}`);
-  }
+    const formData = new FormData(event.target);
+    fetch(event.target.action, {
+        method: 'POST',
+        body: formData,
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            if (data.prediction) {
+                resultContainer.classList.remove('hidden');
+                document.getElementById('typewriter-text').innerText = data.prediction.descripcion;
+            } else {
+                console.error('Prediction data is missing');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
 }
+function animateTyping() {
+    const description = document.getElementById('typewriter-text');
+    const text = description.innerText;
+    description.innerText = '';
 
-function animateTyping(text) {
-  const description = document.getElementById('typewriter-text');
-  if (!description) {
-      console.error('Typewriter element not found');
-      return;
-  }
-
-  description.textContent = '';
-  let i = 0;
-
-  const typing = setInterval(() => {
-      if (i < text.length) {
-          description.textContent += text[i];
-          i++;
-      } else {
-          clearInterval(typing);
-      }
-  }, 20);
+    let i = 0;
+    const typing = setInterval(() => {
+        description.innerText += text[i];
+        i++;
+        if (i >= text.length) clearInterval(typing);
+    }, 20);
 }

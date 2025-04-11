@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html class="h-full">
+<head>
+    <title>Pokémon Cluster Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</head>
+
+<body class="h-full bg-gradient-to-br from-red-50 to-blue-50">
+    {% include 'partials/icons.html' %}
+
+    <div class="min-h-screen flex items-center justify-center p-4">
+        <div class="w-full max-w-2xl bg-white rounded-[2rem] shadow-2xl p-8 border-8 border-yellow-400/20 bg-gradient-to-br from-white to-slate-50">
+            {% include 'partials/header.html' %}
+
+            {% include 'partials/form.html' %}
+
+            <!-- Animación de carga -->
+            <div id="loading-container" class="hidden text-center py-12">
+                <!-- Mantener mismo código de carga -->
+            </div>
+
+            <!-- Resultados -->
+            {% if prediction %}
+                {% include 'partials/result.html' %}
+            {% endif %}
+
+            <!-- Manejo de errores -->
+            {% if error %}
+            <div class="mt-6 p-4 bg-red-50 border-l-4 border-red-400 rounded-xl animate-shake">
+                <!-- Mantener mismo código de error -->
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
