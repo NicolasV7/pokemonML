@@ -1,20 +1,9 @@
-import sys
-import os
+from core import create_app
 
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+app = create_app()
 
-from flask import Flask
-from core.config import Config
-from routes.main_routes import configure_routes
+from routes.predict import init_service
+init_service(app)
 
-def create_app():
-    app = Flask(__name__)
-    app.config.from_object(Config)
-
-    configure_routes(app)
-
-    return app
-
-if __name__ == '__main__':
-    app = create_app()
+if __name__ == "__main__":
     app.run(debug=True)
