@@ -51,6 +51,18 @@ class PredictorService:
                 }
             }
 
+            for cluster_id in self.cluster_info:
+                ejemplos_con_imagenes = []
+                for name in self.cluster_info[cluster_id]['ejemplos']:
+                    pokemon = self.df[self.df['Name'] == name]
+                    if not pokemon.empty:
+                        numero = pokemon.iloc[0]['#']
+                        ejemplos_con_imagenes.append({
+                            'name': name,
+                            'image': f"{numero:03d}.png"
+                        })
+                self.cluster_info[cluster_id]['ejemplos'] = ejemplos_con_imagenes
+
             print("✅ Recursos cargados exitosamente")
         except Exception as e:
             print(f"❌ Error cargando recursos: {str(e)}")
@@ -65,7 +77,11 @@ class PredictorService:
         scaled_data = self.scaler.transform(input_df)
         cluster = self.model.predict(scaled_data)[0]
 
-        # Obtener ejemplos reales
-        examples = self.df[self.df['Clusters'] == cluster]['Name'].sample(3).tolist()
+        # Obtener ejemplos reales con imágenes
+        examples_data = self.df[self.df['Clusters'] == cluster][['#', 'Name']].sample(3)
+        examples = [{
+            'name': row['Name'],
+            'image': f"{row['#']:03d}.png"
+        } for _, row in examples_data.iterrows()]
 
         return self.cluster_info[cluster], examples
