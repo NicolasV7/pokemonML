@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html class="h-full">
-
+<html class="h-full" lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokémon Cluster Predictor</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -37,20 +38,22 @@
                     const famousExamples = document.getElementById('famous-examples');
                     famousExamples.innerHTML = data.prediction.ejemplos
                         .map(ex => `
-        <div class="flex items-center gap-2 px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm">
-            <img src="/static/images/${ex.image}" class="w-6 h-6 object-contain" alt="${ex.name}">
-            ${ex.name}
-        </div>
+                                <div class="flex items-center gap-1 px-2 py-0.5 bg-red-100 text-red-700
+                                         rounded-full text-xs sm:px-3 sm:py-1 sm:text-sm">
+                                    <img src="/static/images/${ex.image}" class="w-5 h-5 object-contain sm:w-6 sm:h-6">
+                                    ${ex.name}
+                                </div>
     `).join('');
 
                     // Actualizar Pokémon similares
                     const similarPokemon = document.getElementById('similar-pokemon');
                     similarPokemon.innerHTML = data.examples
                         .map(ex => `
-        <div class="flex items-center gap-2 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">
-            <img src="/static/images/${ex.image}" class="w-6 h-6 object-contain" alt="${ex.name}">
-            ${ex.name}
-        </div>
+                                <div class="flex items-center gap-1 px-2 py-0.5 bg-red-100 text-red-700
+                                         rounded-full text-xs sm:px-3 sm:py-1 sm:text-sm">
+                                    <img src="/static/images/${ex.image}" class="w-5 h-5 object-contain sm:w-6 sm:h-6">
+                                    ${ex.name}
+                                </div>
     `).join('');
 
                     loadingContainer.classList.add('hidden');
@@ -101,20 +104,18 @@
 </head>
 
 <body class="h-full bg-gradient-to-br from-red-50 to-blue-50">
-    <div class="fixed top-4 right-4 flex gap-3 z-10">
+    <div class="fixed top-2 right-2 flex gap-2 z-10 sm:top-4 sm:right-4 sm:gap-3">
         <a href="https://github.com/NicolasV7/pokemonML" target="_blank"
-            class="p-2 bg-white/80 rounded-full shadow-lg hover:bg-gray-50 transition-all"
-            aria-label="GitHub Repository">
-            <svg class="w-6 h-6 text-gray-800" viewBox="0 0 24 24" fill="currentColor">
+            class="p-1.5 bg-white/80 rounded-full shadow-lg hover:bg-gray-50 transition-all sm:p-2">
+            <svg class="w-5 h-5 text-gray-800 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="currentColor">
                 <path fill-rule="evenodd" clip-rule="evenodd"
                     d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
             </svg>
         </a>
 
         <a href="https://colab.research.google.com/drive/19fRow6ncG6gn1QD3fCbz6R8QNvbY3SmZ?usp=sharing" target="_blank"
-            class="p-2 bg-white/80 rounded-full shadow-lg hover:bg-gray-50 transition-all"
-            aria-label="Google Colab Notebook">
-            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none">
+            class="p-1.5 bg-white/80 rounded-full shadow-lg hover:bg-gray-50 transition-all sm:p-2">
+            <svg class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none">
                 <path
                     d="M16.9414 4.9757L7.05862 4.9757C5.41126 4.9757 4.07373 6.31322 4.07373 7.96059L4.07373 16.0393C4.07373 17.6867 5.41126 19.0242 7.05862 19.0242L16.9414 19.0242C18.5888 19.0242 19.9263 17.6867 19.9263 16.0393L19.9263 7.96059C19.9263 6.31322 18.5888 4.9757 16.9414 4.9757Z"
                     fill="#F9AB00" />
@@ -127,74 +128,89 @@
             </svg>
         </a>
     </div>
-    <div class="min-h-screen flex items-center justify-center p-4">
-        <div
-            class="w-full max-w-2xl bg-white rounded-[2rem] shadow-2xl p-8 border-8 border-yellow-400/20 bg-gradient-to-br from-white to-slate-50">
+    <div class="min-h-screen flex items-center justify-center p-2 sm:p-4">
+        <div class="w-full max-w-2xl bg-white rounded-2xl shadow-xl p-4 border-4 border-yellow-400/20
+             bg-gradient-to-br from-white to-slate-50 mx-2 sm:rounded-[2rem] sm:border-8 sm:p-8">
             <!-- Encabezado -->
-            <div class="mb-8 text-center relative">
-                <h1 class="text-4xl font-bold bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">
+            <div class="mb-4 text-center sm:mb-8">
+                <h1 class="text-2xl font-bold bg-gradient-to-r from-red-600 to-blue-600
+                          bg-clip-text text-transparent sm:text-4xl">
                     Pokémon Cluster Analyzer
                 </h1>
-                <p class="mt-2 text-slate-500">Analyze your Pokémon's strategic group</p>
+                <p class="mt-1 text-sm text-slate-500 sm:mt-2 sm:text-base">Analyze your Pokémon's strategic group</p>
             </div>
 
             <!-- Contenedor del Formulario -->
             <div id="form-container">
-                <form method="POST" class="space-y-6" onsubmit="handleSubmit(event)">
-                    <div class="grid grid-cols-2 gap-4">
+                <form method="POST" class="space-y-4 sm:space-y-6" onsubmit="handleSubmit(event)">
+                    <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
                         <!-- HP -->
                         <div class="group">
-                            <label class="block text-sm font-medium text-slate-700 mb-2 ml-1">HP</label>
-                            <input type="number" name="hp" required class="w-full px-6 py-3 rounded-2xl border-2 border-slate-200 focus:border-red-500
-                                   focus:ring-4 focus:ring-red-100 transition-all shadow-sm" min="1" max="255"
-                                placeholder="Ej: 75">
+                            <label class="block text-xs font-medium text-slate-700 mb-1 sm:text-sm sm:mb-2">HP</label>
+                            <input type="number" name="hp" required
+                                class="w-full px-4 py-2.5 text-sm rounded-xl border-2 border-slate-200
+                                       focus:border-red-500 focus:ring-2 focus:ring-red-100 transition-all
+                                       sm:px-6 sm:py-3 sm:text-base sm:rounded-2xl"
+                                min="1" max="255" placeholder="75">
                         </div>
 
                         <!-- Attack -->
                         <div class="group">
-                            <label class="block text-sm font-medium text-slate-700 mb-2 ml-1">Attack</label>
-                            <input type="number" name="attack" required class="w-full px-6 py-3 rounded-2xl border-2 border-slate-200 focus:border-red-500
-                                   focus:ring-4 focus:ring-red-100 transition-all shadow-sm" min="1" max="255"
-                                placeholder="Ej: 100">
+                            <label class="block text-xs font-medium text-slate-700 mb-1 sm:text-sm sm:mb-2">Attack</label>
+                            <input type="number" name="attack" required
+                                class="w-full px-4 py-2.5 text-sm rounded-xl border-2 border-slate-200
+                                       focus:border-red-500 focus:ring-2 focus:ring-red-100 transition-all
+                                       sm:px-6 sm:py-3 sm:text-base sm:rounded-2xl"
+                                min="1" max="255" placeholder="75">
                         </div>
 
                         <!-- Defense -->
                         <div class="group">
-                            <label class="block text-sm font-medium text-slate-700 mb-2 ml-1">Defense</label>
-                            <input type="number" name="defense" required class="w-full px-6 py-3 rounded-2xl border-2 border-slate-200 focus:border-red-500
-                                   focus:ring-4 focus:ring-red-100 transition-all shadow-sm" min="1" max="255"
-                                placeholder="Ej: 90">
+                            <label class="block text-xs font-medium text-slate-700 mb-1 sm:text-sm sm:mb-2">Defense</label>
+                            <input type="number" name="defense" required
+                                class="w-full px-4 py-2.5 text-sm rounded-xl border-2 border-slate-200
+                                       focus:border-red-500 focus:ring-2 focus:ring-red-100 transition-all
+                                       sm:px-6 sm:py-3 sm:text-base sm:rounded-2xl"
+                                min="1" max="255" placeholder="75">
                         </div>
 
                         <!-- Sp. Atk -->
                         <div class="group">
-                            <label class="block text-sm font-medium text-slate-700 mb-2 ml-1">Sp. Atk</label>
-                            <input type="number" name="sp_atk" required class="w-full px-6 py-3 rounded-2xl border-2 border-slate-200 focus:border-red-500
-                                   focus:ring-4 focus:ring-red-100 transition-all shadow-sm" min="1" max="255"
-                                placeholder="Ej: 110">
+                            <label class="block text-xs font-medium text-slate-700 mb-1 sm:text-sm sm:mb-2">Sp. Attack</label>
+                            <input type="number" name="sp_atk" required
+                                class="w-full px-4 py-2.5 text-sm rounded-xl border-2 border-slate-200
+                                       focus:border-red-500 focus:ring-2 focus:ring-red-100 transition-all
+                                       sm:px-6 sm:py-3 sm:text-base sm:rounded-2xl"
+                                min="1" max="255" placeholder="75">
                         </div>
 
                         <!-- Sp. Def -->
                         <div class="group">
-                            <label class="block text-sm font-medium text-slate-700 mb-2 ml-1">Sp. Def</label>
-                            <input type="number" name="sp_def" required class="w-full px-6 py-3 rounded-2xl border-2 border-slate-200 focus:border-red-500
-                                   focus:ring-4 focus:ring-red-100 transition-all shadow-sm" min="1" max="255"
-                                placeholder="Ej: 80">
+                            <label class="block text-xs font-medium text-slate-700 mb-1 sm:text-sm sm:mb-2">Sp. Defense</label>
+                            <input type="number" name="sp_def" required
+                                class="w-full px-4 py-2.5 text-sm rounded-xl border-2 border-slate-200
+                                       focus:border-red-500 focus:ring-2 focus:ring-red-100 transition-all
+                                       sm:px-6 sm:py-3 sm:text-base sm:rounded-2xl"
+                                min="1" max="255" placeholder="75">
                         </div>
 
                         <!-- Speed -->
                         <div class="group">
-                            <label class="block text-sm font-medium text-slate-700 mb-2 ml-1">Speed</label>
-                            <input type="number" name="speed" required class="w-full px-6 py-3 rounded-2xl border-2 border-slate-200 focus:border-red-500
-                                   focus:ring-4 focus:ring-red-100 transition-all shadow-sm" min="1" max="255"
-                                placeholder="Ej: 90">
+                            <label class="block text-xs font-medium text-slate-700 mb-1 sm:text-sm sm:mb-2">Speed</label>
+                            <input type="number" name="speed" required
+                                class="w-full px-4 py-2.5 text-sm rounded-xl border-2 border-slate-200
+                                       focus:border-red-500 focus:ring-2 focus:ring-red-100 transition-all
+                                       sm:px-6 sm:py-3 sm:text-base sm:rounded-2xl"
+                                min="1" max="255" placeholder="75">
                         </div>
 
                     </div>
 
                     <button type="submit"
-                        class="w-full py-4 px-6 bg-gradient-to-r from-red-600 to-blue-600 hover:from-red-700 hover:to-blue-700
-                           text-white rounded-2xl font-bold text-lg transition-all transform hover:scale-105 shadow-lg">
+                        class="w-full py-3 px-4 bg-gradient-to-r from-red-600 to-blue-600 text-sm
+                               font-semibold text-white rounded-xl transition-all hover:from-red-700
+                               hover:to-blue-700 active:scale-95 sm:py-4 sm:px-6 sm:text-lg sm:rounded-2xl
+                               sm:font-bold">
                         Analyze Pokémon
                     </button>
                 </form>
@@ -217,23 +233,23 @@
             <!-- Resultados -->
 
             <div id="result-container" class="hidden">
-                <div class="mt-8 animate-fade-in">
-                    <div class="space-y-4">
+                <div class="mt-6 animate-fade-in sm:mt-8">
+                    <div class="space-y-3 sm:space-y-4">
                         <div>
-                            <h4 class="font-medium text-slate-700 mb-2">Characteristics</h4>
-                            <p id="typewriter-text" class="text-slate-600"></p>
+                            <h4 class="text-sm font-medium text-slate-700 sm:text-base">Characteristics</h4>
+                            <p id="typewriter-text" class="text-xs text-slate-600 mt-1 sm:text-sm"></p>
                         </div>
 
                         <div>
-                            <h4 class="font-medium text-slate-700 mb-2">Famous Examples</h4>
-                            <div id="famous-examples" class="flex flex-wrap gap-2">
+                            <h4 class="text-sm font-medium text-slate-700 sm:text-base">Famous Examples</h4>
+                            <div id="famous-examples" class="flex flex-wrap gap-1.5 mt-1 sm:gap-2">
                                 <!-- Los ejemplos se llenarán dinámicamente -->
                             </div>
                         </div>
 
                         <div>
-                            <h4 class="font-medium text-slate-700 mb-2">Similar Pokémon</h4>
-                            <div id="similar-pokemon" class="flex flex-wrap gap-2">
+                            <h4 class="text-sm font-medium text-slate-700 sm:text-base">Similar Pokémon</h4>
+                            <div id="similar-pokemon" class="flex flex-wrap gap-1.5 mt-1 sm:gap-2">
                                 <!-- Los Pokémon similares se llenarán dinámicamente -->
                             </div>
                         </div>
@@ -243,7 +259,8 @@
 
             <!-- Manejo de errores -->
             {% if error %}
-            <div class="mt-6 p-4 bg-red-50 border-l-4 border-red-400 rounded-xl animate-shake">
+            <div class="mt-4 p-3 bg-red-50 border-l-4 border-red-400 rounded-lg text-xs
+                      sm:mt-6 sm:p-4 sm:rounded-xl sm:text-sm">
                 <div class="flex items-center gap-3">
                     <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
