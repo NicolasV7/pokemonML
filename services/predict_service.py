@@ -25,29 +25,29 @@ class PredictorService:
 
             self.cluster_info = {
                 0: {
-                    "nombre": "Equilibrados Tácticos",
-                    "descripcion": "Balance ofensivo/defensivo. HP: 70-90, Ataque/Defensa: 80-100",
-                    "ejemplos": ["Charizard", "Blastoise", "Venusaur", "Nidoking", "Arcanine"]
+                    "nombre": "Weakest Pokemons Cluster",
+                    "descripcion": "The weakest Pokemons, low values for all the Skills",
+                    "ejemplos": ["Magikarp", "Porygon", "Magikarp"]
                 },
                 1: {
-                    "nombre": "Muros Defensivos",
-                    "descripcion": "Altas defensas (>100) y HP (>90). Baja velocidad (<50)",
-                    "ejemplos": ["Snorlax", "Steelix", "Aggron", "Umbreon", "Metagross"]
+                    "nombre": "The Overpowering Squad",
+                    "descripcion": "The strongest Pokemons have high values for all skills. Speed, Attack and Special Attack are the top 3 skills",
+                    "ejemplos": ["AegislashBlade Forme", "KyogrePrimal Kyogre", "MewtwoMega Mewtwo Y"]
                 },
                 2: {
-                    "nombre": "Velocistas Ofensivos",
-                    "descripcion": "Velocidad >110. Ataque/Sp. Atk >100. Defensa baja (<70)",
-                    "ejemplos": ["Jolteon", "Aerodactyl", "Crobat", "Weavile", "Ninjask"]
+                    "nombre": "Speedy Squad",
+                    "descripcion": "Cluster of the fastest Pokemons. Speed, Attack and Special Attack are the Top 3 Skills",
+                    "ejemplos": ["Accelgor", "Ninjask", "Crobat"]
                 },
                 3: {
-                    "nombre": "Defensores Especiales",
-                    "descripcion": "Sp. Def >100. HP >90. Buen balance defensivo",
-                    "ejemplos": ["Alakazam", "Slowking", "Muk", "Cresselia", "Mr. Mime"]
+                    "nombre": "The Defensive Squad",
+                    "descripcion": "The highest Skills are Defense and Special Defense. Defensive, Special Defense and Attack are the Top 3 Skills",
+                    "ejemplos": ["Shuckle", "Regirock", "Steelix"]
                 },
                 4: {
-                    "nombre": "Legendarios Puros",
-                    "descripcion": "Stats totales >600. Múltiples stats >100",
-                    "ejemplos": ["Mewtwo", "Lugia", "Rayquaza", "Groudon", "Kyogre"]
+                    "nombre": "High HP and Slow Speed Cluster",
+                    "descripcion": "They have High HP and Slow Speed. HP, Attack and Special Defense are the top 3 skills",
+                    "ejemplos": ["Blissey", "Chansey", "Wobbuffet"]
                 }
             }
 
