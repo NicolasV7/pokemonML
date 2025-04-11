@@ -32,10 +32,9 @@
                         throw new Error(data.error);
                     }
 
-                    // Actualizar todos los elementos del resultado
                     document.getElementById('typewriter-text').innerText = data.prediction.descripcion;
+                    document.getElementById('cluster-name').innerText = data.prediction.nombre;
 
-                    // Actualizar ejemplos famosos
                     const famousExamples = document.getElementById('famous-examples');
                     famousExamples.innerHTML = data.prediction.ejemplos
                         .map(ex => `
@@ -46,7 +45,6 @@
                                 </div>
     `).join('');
 
-                    // Actualizar Pokémon similares
                     const similarPokemon = document.getElementById('similar-pokemon');
                     similarPokemon.innerHTML = data.examples
                         .map(ex => `
@@ -66,7 +64,6 @@
                     loadingContainer.classList.add('hidden');
                     resultContainer.classList.add('hidden');
 
-                    // Mostrar error
                     const errorHtml = `
             <div class="flex items-center gap-3">
                 <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -233,45 +230,49 @@
 
             <div id="result-container" class="hidden">
                 <div class="mt-6 animate-fade-in sm:mt-8">
+                    <h2 id="cluster-name" class="text-xl font-bold bg-gradient-to-r from-red-600 to-blue-600
+                               bg-clip-text text-transparent text-center mb-4 sm:text-3xl">
+                    </h2>
                     <div class="space-y-3 sm:space-y-4">
-                        <div>
-                            <h4 class="text-sm font-medium text-slate-700 sm:text-base">Characteristics</h4>
-                            <p id="typewriter-text" class="text-xs text-slate-600 mt-1 sm:text-sm">
-                            </p>
-                        </div>
-
-                        <div>
-                            <h4 class="text-sm font-medium text-slate-700 sm:text-base">Famous Examples</h4>
-                            <div id="famous-examples" class="flex flex-wrap gap-1.5 mt-1 sm:gap-2">
-                                <!-- Los ejemplos se llenarán dinámicamente -->
+                        <div class="space-y-3 sm:space-y-4">
+                            <div>
+                                <h4 class="text-sm font-medium text-slate-700 sm:text-base">Characteristics</h4>
+                                <p id="typewriter-text" class="text-xs text-slate-600 mt-1 sm:text-sm">
+                                </p>
                             </div>
-                        </div>
 
-                        <div>
-                            <h4 class="text-sm font-medium text-slate-700 sm:text-base">Similar Pokémon</h4>
-                            <div id="similar-pokemon" class="flex flex-wrap gap-1.5 mt-1 sm:gap-2">
-                                <!-- Los Pokémon similares se llenarán dinámicamente -->
+                            <div>
+                                <h4 class="text-sm font-medium text-slate-700 sm:text-base">Famous Examples</h4>
+                                <div id="famous-examples" class="flex flex-wrap gap-1.5 mt-1 sm:gap-2">
+                                    <!-- Los ejemplos se llenarán dinámicamente -->
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="text-sm font-medium text-slate-700 sm:text-base">Similar Pokémon</h4>
+                                <div id="similar-pokemon" class="flex flex-wrap gap-1.5 mt-1 sm:gap-2">
+                                    <!-- Los Pokémon similares se llenarán dinámicamente -->
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Manejo de errores -->
-            {% if error %}
-            <div class="mt-4 p-3 bg-red-50 border-l-4 border-red-400 rounded-lg text-xs
+                <!-- Manejo de errores -->
+                {% if error %}
+                <div class="mt-4 p-3 bg-red-50 border-l-4 border-red-400 rounded-lg text-xs
                       sm:mt-6 sm:p-4 sm:rounded-xl sm:text-sm">
-                <div class="flex items-center gap-3">
-                    <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                    </svg>
-                    <span class="text-red-700 font-medium">{{ error }}</span>
+                    <div class="flex items-center gap-3">
+                        <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                        <span class="text-red-700 font-medium">{{ error }}</span>
+                    </div>
                 </div>
+                {% endif %}
             </div>
-            {% endif %}
         </div>
-    </div>
 </body>
 
 </html>

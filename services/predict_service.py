@@ -27,7 +27,7 @@ class PredictorService:
                 0: {
                     "nombre": "Weakest Pokemons Cluster",
                     "descripcion": "The weakest Pokemons, low values for all the Skills",
-                    "ejemplos": ["Magikarp", "Porygon", "Magikarp"]
+                    "ejemplos": ["Caterpie", "Porygon", "Magikarp"] # Done all fields 1
                 },
                 1: {
                     "nombre": "The Overpowering Squad",
@@ -37,17 +37,17 @@ class PredictorService:
                 2: {
                     "nombre": "Speedy Squad",
                     "descripcion": "Cluster of the fastest Pokemons. Speed, Attack and Special Attack are the Top 3 Skills",
-                    "ejemplos": ["Accelgor", "Ninjask", "Crobat"]
+                    "ejemplos": ["Accelgor", "Ninjask", "Crobat"] # Done fields as example
                 },
                 3: {
                     "nombre": "The Defensive Squad",
                     "descripcion": "The highest Skills are Defense and Special Defense. Defensive, Special Defense and Attack are the Top 3 Skills",
-                    "ejemplos": ["Shuckle", "Regirock", "Steelix"]
+                    "ejemplos": ["Shuckle", "Regirock", "Steelix"] # Done first field 255
                 },
                 4: {
                     "nombre": "High HP and Slow Speed Cluster",
                     "descripcion": "They have High HP and Slow Speed. HP, Attack and Special Defense are the top 3 skills",
-                    "ejemplos": ["Blissey", "Chansey", "Wobbuffet"]
+                    "ejemplos": ["Blissey", "Chansey", "Wobbuffet"] # Done last field 255
                 }
             }
 

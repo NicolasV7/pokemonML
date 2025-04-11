@@ -25,6 +25,7 @@ def predict():
             print(f"Predicción: {cluster}")
             return jsonify({
                 'prediction': {
+                    'nombre': cluster['nombre'],
                     'descripcion': cluster['descripcion'],
                     'ejemplos': cluster['ejemplos']
                 },
