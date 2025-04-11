@@ -6,27 +6,46 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        function handleSubmit(event) {
-            event.preventDefault();
+function handleSubmit(event) {
+    event.preventDefault();
 
-            // Ocultar formulario y mostrar carga
-            document.getElementById('form-container').classList.add('hidden');
-            document.getElementById('loading-container').classList.remove('hidden');
+    const formContainer = document.getElementById('form-container');
+    const loadingContainer = document.getElementById('loading-container');
+    const resultContainer = document.getElementById('result-container');
 
-            // Simular carga
-            setTimeout(() => {
-                document.getElementById('loading-container').classList.add('hidden');
-                document.getElementById('result-container').classList.remove('hidden');
-                animateTyping();
-            }, 1500);
+    if (!formContainer || !loadingContainer || !resultContainer) {
+        console.error('One or more elements are missing in the DOM.');
+        return;
+    }
 
-            // Enviar datos al servidor con fetch
-            const formData = new FormData(event.target);
-            fetch(event.target.action, {
-                method: 'POST',
-                body: formData,
-            })
-        }
+    formContainer.classList.add('hidden');
+    loadingContainer.classList.remove('hidden');
+
+    setTimeout(() => {
+        loadingContainer.classList.add('hidden');
+        resultContainer.classList.remove('hidden');
+        animateTyping();
+    }, 1500);
+
+    const formData = new FormData(event.target);
+    fetch(event.target.action, {
+        method: 'POST',
+        body: formData,
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            if (data.prediction) {
+                resultContainer.classList.remove('hidden');
+                document.getElementById('typewriter-text').innerText = data.prediction.descripcion;
+            } else {
+                console.error('Prediction data is missing');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
         function animateTyping() {
             const description = document.getElementById('typewriter-text');
             const text = description.innerText;
