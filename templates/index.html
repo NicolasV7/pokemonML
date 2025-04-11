@@ -13,17 +13,17 @@
             const loadingContainer = document.getElementById('loading-container');
             const resultContainer = document.getElementById('result-container');
 
-            if(!formContainer){
+            if (!formContainer) {
                 console.error('Form container not found');
                 return;
             }
 
-            if(!loadingContainer){
+            if (!loadingContainer) {
                 console.error('Loading container not found');
                 return;
             }
 
-            if(!resultContainer){
+            if (!resultContainer) {
                 console.error('Result container not found');
                 return;
             }
@@ -186,8 +186,9 @@
             </div>
 
             <!-- Resultados -->
-            {% if prediction %}
+
             <div id="result-container" class="hidden">
+                {% if prediction %}
                 <div class="mt-8 animate-fade-in">
                     <!-- ... (contenido del resultado existente) ... -->
                     <div class="space-y-4">
@@ -215,8 +216,9 @@
                         </div>
                     </div>
                 </div>
+                {% endif %}
             </div>
-            {% endif %}
+
 
             <!-- Manejo de errores -->
             {% if error %}
