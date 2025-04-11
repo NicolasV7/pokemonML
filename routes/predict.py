@@ -1,4 +1,4 @@
-from flask import Blueprint, current_app, render_template, request
+from flask import Blueprint, current_app, jsonify, render_template, request
 from services.predict_service import PredictorService
 
 bp = Blueprint('predict', __name__)
@@ -22,9 +22,13 @@ def predict():
             ]
 
             cluster, examples = service.predict_cluster(stats)
-            return render_template('index.html',
-                                prediction=cluster,
-                                examples=examples)
+            return jsonify({
+                'prediction': {
+                    'descripcion': cluster['descripcion'],
+                    'ejemplos': cluster['ejemplos']
+                },
+                'examples': examples
+            })
 
         except Exception as e:
             return render_template('index.html',
