@@ -3,12 +3,8 @@ FROM python:3.10-slim as builder
 WORKDIR /app
 
 ARG FLASK_ENV
-ARG SECRET_KEY
-ARG MODEL_PATH
 
 ENV FLASK_ENV=${FLASK_ENV}
-ENV SECRET_KEY=${SECRET_KEY}
-ENV MODEL_PATH=${MODEL_PATH}
 
 COPY requirements.txt .
 RUN pip install --user --no-cache-dir -r requirements.txt

@@ -11,7 +11,6 @@ def create_app():
         DATA_PATH=os.path.join(app.root_path, '../models/pokedex_cluster.csv')
     )
 
-    # Registrar blueprints
     from routes.predict import bp as predict_bp
     app.register_blueprint(predict_bp)
 

@@ -1,6 +1,5 @@
 import pickle
 import pandas as pd
-import numpy as np
 
 class PredictorService:
     def __init__(self, app):
@@ -13,21 +12,19 @@ class PredictorService:
 
     def load_resources(self):
         try:
-            # Cargar modelos con rutas absolutas
             with open(self.app.config['MODEL_PATH'], 'rb') as f:
                 self.model = pickle.load(f)
 
             with open(self.app.config['SCALER_PATH'], 'rb') as f:
                 self.scaler = pickle.load(f)
 
-            # Cargar datos
             self.df = pd.read_csv(self.app.config['DATA_PATH'])
 
             self.cluster_info = {
                 0: {
                     "nombre": "Weakest Pokemons Cluster",
                     "descripcion": "The weakest Pokemons, low values for all the Skills",
-                    "ejemplos": ["Caterpie", "Porygon", "Magikarp"] # Done all fields 1
+                    "ejemplos": ["Caterpie", "Porygon", "Magikarp"]
                 },
                 1: {
                     "nombre": "The Overpowering Squad",
@@ -37,17 +34,17 @@ class PredictorService:
                 2: {
                     "nombre": "Speedy Squad",
                     "descripcion": "Cluster of the fastest Pokemons. Speed, Attack and Special Attack are the Top 3 Skills",
-                    "ejemplos": ["Accelgor", "Ninjask", "Crobat"] # Done fields as example
+                    "ejemplos": ["Accelgor", "Ninjask", "Crobat"]
                 },
                 3: {
                     "nombre": "The Defensive Squad",
                     "descripcion": "The highest Skills are Defense and Special Defense. Defensive, Special Defense and Attack are the Top 3 Skills",
-                    "ejemplos": ["Shuckle", "Regirock", "Steelix"] # Done first field 255
+                    "ejemplos": ["Shuckle", "Regirock", "Steelix"]
                 },
                 4: {
                     "nombre": "High HP and Slow Speed Cluster",
                     "descripcion": "They have High HP and Slow Speed. HP, Attack and Special Defense are the top 3 skills",
-                    "ejemplos": ["Blissey", "Chansey", "Wobbuffet"] # Done last field 255
+                    "ejemplos": ["Blissey", "Chansey", "Wobbuffet"]
                 }
             }
 
@@ -69,15 +66,12 @@ class PredictorService:
             raise
 
     def predict_cluster(self, stats):
-        # Preprocesamiento
         features = ['HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed']
         input_df = pd.DataFrame([stats], columns=features)
 
-        # Escalado y predicción
         scaled_data = self.scaler.transform(input_df)
         cluster = self.model.predict(scaled_data)[0]
 
-        # Obtener ejemplos reales con imágenes
         examples_data = self.df[self.df['Clusters'] == cluster][['#', 'Name']].sample(3)
         examples = [{
             'name': row['Name'],

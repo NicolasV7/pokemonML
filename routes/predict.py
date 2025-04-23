@@ -1,9 +1,8 @@
-from flask import Blueprint, current_app, jsonify, render_template, request
+from flask import Blueprint, jsonify, render_template, request
 from services.predict_service import PredictorService
 
 bp = Blueprint('predict', __name__)
 
-# Inicializar servicio con la app
 def init_service(app):
     global service
     service = PredictorService(app)
