@@ -1,9 +1,10 @@
 from core.config import Config
 from flask import Flask # type: ignore
-from core.logging import configure_flask_logging
-from core.logging.middlewares import log_startup, register_logging_middlewares
+from core.logging import configure_logging, configure_flask_logging
 
 def create_app():
+    logger = configure_logging()
+
     app = Flask(__name__,
                 static_folder='../static',
                 template_folder='../templates')

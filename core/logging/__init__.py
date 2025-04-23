@@ -1,47 +1,53 @@
 import logging
-from typing import Optional
-from flask import Flask # type: ignore
 from rich.console import Console # type: ignore
 from rich.traceback import install # type: ignore
 from rich.logging import RichHandler # type: ignore
 
-def configure_logging(app_name: str = "Pokémon Cluster Analyzer", level: int = logging.INFO):
-    """
-    Configura el sistema de logging centralizado para la aplicación.
-    """
-    install(show_locals=True, suppress=[Flask])
+class RichPanelHandler(RichHandler):
+    def emit(self, record: logging.LogRecord) -> None:
+        if hasattr(record.msg, '__rich__') or isinstance(record.msg, str):
+            super().emit(record)
+        else:
+            console = Console()
+            console.print(record.msg)
+            record.msg = ""
 
-    logging.basicConfig(
-        level=level,
-        format="%(message)s",
-        datefmt="[%X]",
-        handlers=[RichHandler(
-            console=Console(),
-            show_time=True,
-            show_level=True,
-            show_path=True,
-            markup=True,
-        )]
-    )
+def configure_logging(app_name: str = "Pokémon Cluster Analyzer"):
+    """Configura el sistema de logging centralizado"""
+    install(show_locals=True)
 
-    service_logger = logging.getLogger('services')
-    service_logger.setLevel(logging.DEBUG)
+    logging.basicConfig(level=logging.INFO, handlers=[])
+
+    root_logger = logging.getLogger()
+    root_logger.addHandler(RichPanelHandler(
+        console=Console(),
+        show_time=True,
+        show_level=True,
+        show_path=False,
+        markup=True,
+    ))
 
     return logging.getLogger(app_name)
 
 def configure_flask_logging(app):
-    """
-    Configura logging específico para Flask.
-    """
-    from .handlers import FlaskRichHandler
-    from .middlewares import register_logging_middlewares
+    for handler in app.logger.handlers[:]:
+        app.logger.removeHandler(handler)
 
-    app.logger.handlers.clear()
-    app.logger.addHandler(FlaskRichHandler())
-    app.logger.setLevel(logging.INFO)
+    app.logger.addHandler(RichPanelHandler(
+        console=Console(stderr=True),
+        show_time=True,
+        show_level=True,
+        markup=True
+    ))
 
-    register_logging_middlewares(app)
-
-    logging.getLogger('werkzeug').setLevel(logging.WARNING)
+    werkzeug_logger = logging.getLogger('werkzeug')
+    werkzeug_logger.handlers = []
+    werkzeug_logger.addHandler(RichPanelHandler(
+        console=Console(stderr=True),
+        show_time=False,
+        show_level=False,
+        markup=True
+    ))
+    werkzeug_logger.setLevel(logging.WARNING)
 
     return app
