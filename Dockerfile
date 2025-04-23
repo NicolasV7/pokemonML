@@ -17,7 +17,7 @@ COPY --from=builder /root/.local /root/.local
 COPY . .
 
 ENV PYTHONPATH=/app
-ENV FLASK_APP=app.py
+ENV FLASK_APP=main.py
 ENV FLASK_ENV=production
 ENV PATH="/root/.local/bin:${PATH}"
 

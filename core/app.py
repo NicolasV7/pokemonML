@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask # type: ignore
 from core.config import Config
 
 def create_app():

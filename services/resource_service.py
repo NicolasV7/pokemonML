@@ -42,8 +42,6 @@ class ResourceService:
             self.load_scaler()
             self.load_data()
             self.process_cluster_info()
-            print("✅ Recursos cargados exitosamente")
             return True
         except Exception as e:
-            print(f"❌ Error cargando recursos: {str(e)}")
             raise
