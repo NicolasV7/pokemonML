@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint # type: ignore
 from controllers.predict_controller import PredictController
 from services.predictor_service import PredictorService
 
@@ -7,7 +7,6 @@ def create_predict_blueprint(app):
     service = PredictorService(app)
     controller = PredictController(service)
 
-    # Configura las rutas
     bp.add_url_rule('/',
                    view_func=controller.handle_prediction,
                    methods=['GET', 'POST'])

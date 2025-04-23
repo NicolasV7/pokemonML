@@ -1,5 +1,5 @@
 import pickle
-import pandas as pd
+import pandas as pd # type: ignore
 from core.cluster_config import BASE_CLUSTER_INFO
 
 class ResourceService:
