@@ -122,7 +122,6 @@ class ResourceService:
                 )
 
             self.console.print(cluster_table)
-            self._log_success("Información de clusters procesada")
 
         except Exception as e:
             self._log_error("Error procesando clusters", e)
@@ -157,7 +156,6 @@ class ResourceService:
                     padding=(1, 4)
                 )
             )
-            self.logger.info("Todos los recursos cargados exitosamente")
             return True
 
         except Exception as e:
